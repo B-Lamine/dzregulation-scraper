@@ -7,6 +7,24 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
+import mysql.connector
+
+db = mysql.connector.connect(
+  host="localhost",
+  user="portfoo",
+  password="portfoo_pwd",
+  database="portfoo_db"
+)
+dbcursor = db.cursor()
+
+dbcursor.execute("SELECT name, email FROM mailing_list")
+data = [list(el) for el in dbcursor.fetchall()]
+mailing_list = [el[1] for el in data]
+
+dbcursor.execute("SELECT username, pwd, host FROM credentials")
+login = list(dbcursor.fetchone())
+db.close()
+#db.commit()
 
 #response = re.get('https://web-scraping.dev/login').content
 #soup = bs(response, 'html.parser')
@@ -34,7 +52,7 @@ file_url = h3.parent.next_sibling.next_sibling.find('a').get('href')
 #print(file_url)
 filename = file_url.split('/')[-1]
 now = datetime.now()
-dirname = '/home/ubuntu/' + now.strftime('%Y-%m-%d' + '-pdf') 
+dirname = now.strftime('%Y-%m-%d' + '-pdf') # '/home/ubuntu/' +
 os.system('sudo mkdir {}'.format(dirname))
 filepath = dirname + '/' + filename
 with open(filepath, 'wb') as f:
@@ -42,8 +60,8 @@ with open(filepath, 'wb') as f:
 	f.write(content)
 
 msg = MIMEMultipart()
-msg['To'] = "foo@example.com"
-msg['From'] = "update@scraper.com"
+msg['To'] = ", ".join(mailing_list)
+msg['From'] = login[0]
 msg['Subject'] = "Test Report"
 
 body = MIMEText('Dear user; this is a test.', 'plain', 'utf-8')
@@ -53,7 +71,10 @@ attachment.add_header('Content-Disposition','attachment', filename=filename)
 msg.attach(attachment)
 
 # Send the email
-with smtplib.SMTP('smtp.example.com', 25) as server:
+print('host', login[2])
+print('user', login[0])
+print('pwd', login[1])
+with smtplib.SMTP(login[2], 25) as server:
     server.starttls()  # Secure the connection
-    server.login('update@scraper.com', 'password')
+    server.login(login[0], login[1])
     server.sendmail(msg['From'], msg['To'], msg.as_string())
