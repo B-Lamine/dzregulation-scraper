@@ -1,0 +1,17 @@
+<!doctype html>
+<HTML lang="en">
+    <HEAD>
+        <TITLE>TEST</TITLE>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--<link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">-->
+    </HEAD>
+    <BODY>
+    	<h1>accessing database:</h1>
+    	<ul>
+	{% for mail in emails %}
+		<li>{{ mail.name}}:: {{ mail.email }}</li>
+    	{% endfor %}
+        </ul>
+    </BODY>
+</HTML>

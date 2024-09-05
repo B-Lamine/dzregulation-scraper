@@ -4,7 +4,7 @@ starts a Flask web application
 """
 
 import pymysql
-from flask import Flask
+from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import text
 
@@ -36,11 +36,11 @@ def index():
             #.filter_by(style='knee-high')
             #.order_by(Sock.name)).scalars()
 
-        dbtext = '<ul>'
-        for mail in emails:
-            dbtext += '<li>' + mail.name + ':: ' + mail.email + '</li>'
-        dbtext += '</ul>'
-        return dbtext
+#        dbtext = '<ul>'
+#        for mail in emails:
+#            dbtext += '<li>' + mail.name + ':: ' + mail.email + '</li>'
+#        dbtext += '</ul>'
+        return render_template('index.html', emails=emails)# dbtext
     except Exception as e:
         # e holds description of the error
         error_text = "<p>The error:<br>" + str(e) + "</p>"
