@@ -1,3 +1,4 @@
+{% from 'bootstrap5/form.html' import render_form %}
 <!doctype html>
 <HTML lang="en">
     <HEAD>
@@ -7,6 +8,12 @@
 <!--<link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">-->
     </HEAD>
     <BODY>
+<!--		{% if message %}
+		{% else %}
+		{% endif %}
+--!>
+        {{ render_form(form) }}
+        <p class="pt-5"><strong>{{ message }}</strong></p>
     	<h1>accessing database:</h1>
     	<ul>
 	{% for mail in emails %}
