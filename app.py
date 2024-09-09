@@ -4,7 +4,7 @@ starts a Flask web application
 """
 
 import pymysql
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_file, url_for
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import text
 from flask_bootstrap import Bootstrap5
@@ -13,6 +13,7 @@ from wtforms import StringField, SubmitField, EmailField
 from wtforms.validators import DataRequired, Length, Email
 import secrets
 from sqlalchemy import insert
+import os
 
 db = SQLAlchemy()
 app = Flask(__name__)
@@ -93,6 +94,16 @@ def index():
 #         error_text = "<p>The error:<br>" + str(e) + "</p>"
 #         hed = '<h1>Something is broken.</h1>'
 #         return hed + error_text
+
+@app.route('/consult', strict_slashes=False)
+def consult():
+    files_list = os.popen('ls storage').read()[:-1].split("\n")
+    return render_template('consult.html', files=files_list)
+
+@app.route('/download/<string:filename>', strict_slashes=False)
+def download(filename):
+    filepath = "storage/" + filename
+    return send_file(filepath, as_attachment=True)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port='5000')
