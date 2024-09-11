@@ -1,0 +1,41 @@
+{% from 'bootstrap5/form.html' import render_form %}
+<!doctype html>
+<HTML lang="en">
+    <HEAD>
+        <TITLE>TEST</TITLE>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--<link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">-->
+    </HEAD>
+    <BODY>
+<!--		{% if message %}
+		{% else %}
+		{% endif %}
+--!>
+
+			<div class="col-md-4 bg-dark">
+		
+		  	<h1>Landing Page</h1>
+
+            <h2>Landing page</h2>
+			<ul>
+				<li><a href={{ url_for('index') }}>About</a></li>
+				<li><a href={{ url_for('subscribe') }}>Subscribe</a></li>
+				<li><a href={{ url_for('consult') }}>Consult</a></li>
+			</ul>
+            <!-- <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p> -->
+            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+          </div>
+          <div class="col-md-4">
+
+        {{ render_form(form) }}
+        <p class="pt-5"><strong>{{ message }}</strong></p>
+	<a href={{ url_for('consult') }}>Consult updates.</a>	
+    	<h1>accessing database:</h1>
+    	<ul>
+	{% for mail in emails %}
+		<li>{{ mail.name}}:: {{ mail.email }}</li>
+    	{% endfor %}
+        </ul>
+    </BODY>
+</HTML>

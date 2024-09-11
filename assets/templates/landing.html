@@ -1,0 +1,18 @@
+{% from 'bootstrap5/form.html' import render_form %}
+<!doctype html>
+<HTML lang="en">
+    <HEAD>
+        <TITLE>TEST</TITLE>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--<link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">-->
+    </HEAD>
+    <BODY>
+		<h1>Landing Page</h1>
+		<ul>
+			<li><a href={{ url_for('index') }}>About</a></li>
+			<li><a href={{ url_for('subscribe') }}>Subscribe</a></li>
+			<li><a href={{ url_for('consult') }}>Consult</a></li>
+		</ul>
+    </BODY>
+</HTML>
