@@ -3,8 +3,8 @@
 starts a Flask web application
 """
 
-from assets import create_app
-from assets.database import init_db
+from app import create_app
+from app.database import init_db
 from flask import Flask, render_template, request, send_file, url_for
 from flask_bootstrap import Bootstrap5
 from flask_wtf import FlaskForm, CSRFProtect
