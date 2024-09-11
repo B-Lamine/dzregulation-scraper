@@ -45,7 +45,7 @@ def subscribe():
         return render_template('index.html', emails=emails, form=form, message=message)# dbtext
     else:
         emails = db.session.execute(db.select(MailingList)).scalars()
-        return render_template('index.html', emails=emails, form=form, message=message)# dbtext
+        return render_template('test.html', emails=emails, form=form, message=message) # index.html
 
 @app.route('/consult', strict_slashes=False)
 def consult():
