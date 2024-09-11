@@ -54,8 +54,8 @@ file_url = h3.parent.next_sibling.next_sibling.find('a').get('href')
 filename = file_url.split('/')[-1]
 now = datetime.now()
 dirname = 'pdf' + now.strftime('%Y%m%d%H%M%S') # '/home/ubuntu/' +
-os.system('sudo mkdir storage/{}'.format(dirname))
-filepath = 'storage/' + dirname + '/' + filename
+os.system('sudo mkdir app/storage/{}'.format(dirname))
+filepath = 'app/storage/' + dirname + '/' + filename
 with open(filepath, 'wb') as f:
 	content = re.get(file_url, verify=False).content
 	f.write(content)
