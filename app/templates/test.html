@@ -64,9 +64,9 @@
 
 		<main role="main">
 			<!-- Main jumbotron for a primary marketing message or call to action -->
-			<div class="jumbotron">
+			<div class="jumbotron sub-section">
 			<div class="row">
-			<div class="col-md-4">
+			<div class="col-md-4 push">
 			<h2>Latest updates available for download :</h2>
 			<!-- <button class="btn btn-success">Download</button> --!>
 			<ul>
@@ -74,22 +74,15 @@
 			<li><a href="{{ url_for('download', filename=file) }}">{{ file }}</a></li>
 			{% endfor %}
 			</ul>
-<!--
-			<p>As part of a first trial, this project arose from a discussion with a pharmacist working in the industry. One of the challenges, that seem solvable via software, is the nearly constant changes in drug regulations. To accomodate the specialist's need to keep up with that, professionals can subscribe here and they' be alerted by email to any considerable change in regulations.
-			By <a href="https://www.linkedin.com/in/lamine-bellilet/">Lamine Bellilet</a>.
-			<a href="https://github.com/B-Lamine/dzregulation-scraper">Project's repo</a></p>
--->
 			</div>
-			<div class="col-md-4">
-<!--
-			<h2>Subscribe</h2>
-			<p>By subscribing users receive email alerts about any changes in regulations. The documents in question are also attached for a quicker access.</p>
-			<p><a class="btn btn-secondary" href={{ url_for('subscribe') }} role="button">Subscribe</a></p>
--->
+	
+<!--			<div class="col-md-4 spacing-col">
 			</div>
-			<div class="col-md-4">
-        <h1>Subscribe</h1>
-        <p class="jumbotron-lg-only">For email alerts.</p>
+-->
+
+			<div class="col-md-4 push">
+        <h1 class="sub-box-title">Subscribe</h1>
+        <p class="jumbotron-lg-only sub-box-subtitle">for email notifications</p>
 <!--        <form name="user-info"> -->
           <div class="form-group">
 
@@ -125,10 +118,11 @@
 			</div> <!-- /container -->
 
 		</main>
-
+		<div class="footer">
 		<footer class="container">
 		<p>&copy; <a href="https://www.alxafrica.com/">ALX Africa SWE program 2024-2025</a></p>
 		</footer>
+		</div>
 
 		<!-- Bootstrap core JavaScript
 		================================================== -->

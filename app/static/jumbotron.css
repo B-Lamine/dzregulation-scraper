@@ -2,11 +2,6 @@
 body {
   padding-top: 3.5rem;
 }
-.intro-section {
-	background-image: linear-gradient(0deg, rgba(255,255,255,0.6),rgba(255,255,255,0.6)), url('images/pharma-production-line.jpg');
-	background-position: center center;
-	background-size: cover;
-}
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400);
 
 body {
@@ -48,7 +43,7 @@ h2 { margin: 0; }
   background: url('http://lorempixel.com/900/500/nature') bottom left no-repeat;
   min-height: 400px;
   background-size: 100%;
-  padding: 10px;
+  padding: 80px 10px; /* 10px; */
 }
 
 .jumbotron-content {
@@ -154,6 +149,54 @@ h2 { margin: 0; }
 
 p.description {
 	color: black;
+	text-align: center;
+}
+
+h1.display-3 {
+	text-align: center;
+}
+
+.intro-section {
+	background-image: linear-gradient(0deg, rgba(255,255,255,0.6),rgba(255,255,255,0.6)), url('images/pharma-production-line.jpg');
+	background-position: center center;
+	background-size: cover;
+}
+
+.sub-section {
+	background-image: linear-gradient(0deg, rgba(255,255,255,0.6),rgba(255,255,255,0.6)), url('https://images.stockcake.com/public/f/0/6/f06669fc-eb61-4cbd-a90c-726519f05973_large/cleanroom-manufacturing-work-stockcake.jpg');
+	background-position: center center;
+	background-size: cover;
+}
+
+.spacing-col {
+	width : 175.5px;
+}
+
+.row {
+	justify-content: space-between;
+}
+.push {
+	margin: auto;
+	background-color: #343a40;
+	border-radius: 5%;
+	color: rgba(255, 255, 255, 0.5);
+}
+.sub-box {
+	background-color: #343a40;
+	border-radius: 5%;
+}
+
+.sub-box-title, .sub-box-subtitle {
+	text-align: center;
+}
+
+#id {
+	text-align: center;
+}
+
+.footer {
+	background-color: #343a40;
+	text-color: rgba(255,255,255,0.5);
 }
 
 /*

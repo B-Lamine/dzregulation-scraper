@@ -43,10 +43,10 @@ def subscribe():
 			return redirect(url_for('subscribe'))
 		else:
 			message = "something is wrong."
-		return render_template('test.html', files=files_list, form=form, message=message)# dbtext
+			return render_template('test.html', files=files_list, form=form, message=message)
 	else:
 		emails = db.session.execute(db.select(MailingList)).scalars()
-		return render_template('test.html', files=files_list, form=form, message=message) # index.html
+		return render_template('test.html', files=files_list, form=form, message=message)
 
 # @app.route('/consult', strict_slashes=False)
 # def consult():
