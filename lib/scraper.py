@@ -10,7 +10,7 @@ import os
 import requests as re
 
 
-def get_link(url)
+def get_link(url):
 	"""
 	the webpage of the url is parsed and search for the file url
 	"""
