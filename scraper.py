@@ -1,85 +1,74 @@
 #!/usr/bin/env python3
-import requests as re
-from bs4 import BeautifulSoup as bs
-import os
-from datetime import datetime
-import smtplib
-from email.message import EmailMessage
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
-from email.mime.application import MIMEApplication
-import mysql.connector
 
+
+from bs4 import BeautifulSoup as bs
+from datetime import datetime
+from email.message import EmailMessage
+from email.mime.application import MIMEApplication
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+import mysql.connector
+import os
+import requests as re
+import smtplib
+
+
+# connect to database
 db = mysql.connector.connect(
   host="localhost",
   user="portfoo",
   password="portfoo_pwd",
   database="portfoo_db"
 )
+# instantiate a cursor to the database
 dbcursor = db.cursor()
-
+# get subscribers email addresses
 dbcursor.execute("SELECT name, email FROM mailing_list")
 data = [list(el) for el in dbcursor.fetchall()]
 mailing_list = [el[1] for el in data]
-
+# get login info to websites email service
 dbcursor.execute("SELECT username, pwd, host FROM credentials")
 login = list(dbcursor.fetchone())
 db.close()
-#db.commit()
 
-#response = re.get('https://web-scraping.dev/login').content
-#soup = bs(response, 'html.parser')
-#atags = soup.find_all('a')
-#for a in atags:
-#	if '.pdf' in a.get('href'):
-#		file = re.get(a.get('href')).content
-#		filename = a.get('href').split('/')[-1]
-#		with open(filename, 'wb') as f:
-#			f.write(file)
-
+# get and parse html page
 url = "http://www.miph.gov.dz/fr/telechargements/"
 response = re.get(url, verify=False).content
 soup = bs(response, 'html.parser')
-
+# get all strong tags
 titles = soup.find_all('strong')
-
+# go through all titles and stop at "nomenclatature"
 for title in titles:
 	if title.string is None:
 		continue
 	else:
 		if "nomenclature" in title.string.lower():
 			h3 = title
+# get the download link to the file
 file_url = h3.parent.next_sibling.next_sibling.next_sibling.next_sibling.find('a').get('href')
-#print(file_url)
 filename = file_url.split('/')[-1]
-now = datetime.now()
-#dirname = 'pdf' + now.strftime('%Y%m%d%H%M%S') # '/home/ubuntu/' +
-#os.system('sudo mkdir app/storage/{}'.format(dirname))
-filepath = 'app/storage/' + filename # + dirname + '/'
+# save file to storake directory of the app
+filepath = 'app/storage/' + filename
 with open(filepath, 'wb') as f:
 	content = re.get(file_url, verify=False).content
 	f.write(content)
 
-#msg = EmailMessage()
+# instantiate an email object headers
 msg = MIMEMultipart()
 msg['To'] = ", ".join(mailing_list)
 msg['From'] = login[0]
 msg['Subject'] = "Update Report"
-
+# set email text
 body = MIMEText('Dear user; Please find attached the latest updates.', 'plain', 'utf-8')
-#body = 'Dear user; this is a test.'
 msg.attach(body)  # add message body (text or html)
 files = os.popen('ls app/storage/').read()[:-1].split('\n')
-
-for f in files:  # add files to the message
+# get all files in storage and attach them to email
+for f in files:
         file_path = os.path.join('app/storage/', f)
         attachment = MIMEApplication(open(file_path, "rb").read(), _subtype=f.split('.')[-1])
         attachment.add_header('Content-Disposition','attachment', filename=f)
         msg.attach(attachment)
 
-# attachment = MIMEApplication(content, _subtype="xlsx")
-# attachment.add_header('Content-Disposition','attachment', filename=filename)
-# msg.attach(attachment)
 
 # Send the email
 with smtplib.SMTP(login[2], 25) as server:
