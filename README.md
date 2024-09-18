@@ -2,7 +2,7 @@
 <img src="https://i.imgur.com/mEz3HB4.png" alt="Drug Regulations Tracker Landing Page"/>
 <h3>Drug Regulations Tracker</h3>
 <p>
-  Tailored for Agerian regulatory affair pharmacists
+  Tailored for Agerian regulatory affairs pharmacists
 </p>
 </div>
 

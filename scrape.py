@@ -17,4 +17,4 @@ if __name__ == '__main__':
 	for recipient in mailing_list:
 		subject = "Update alert"
 		body = 'Dear user; Please find attached the latest file updates.'
-		send_email(recipient, login, subject, body):
+		send_email(recipient, login, subject, body)
